@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1ceqPVi26bxYuJdDijAZxhfx8k6f1Nnit
 """
 
-#!pip install -q yfinance bitmex matplotlib python-telegram-bot nest_asyncio
+!pip install -q yfinance bitmex matplotlib python-telegram-bot nest_asyncio
 
 # -*- coding: utf-8 -*-
 import numpy as np
@@ -43,7 +43,7 @@ load_dotenv()
 
 # Constants
 TOKEN =os.getenv("TOKEN")
-CHAT_ID = os.getenv("CHAT_ID")
+CHAT_ID = os.getenv("CHAT_ID ")
 
 # Global variables
 message_queue = queue.Queue()
@@ -1642,7 +1642,7 @@ def run_trading_script():
     if elapsed_time < 4 * 3600:  # 4 hours in seconds
         print(f"Running step {current_step + 1} of {total_steps}...")
         # Simulate trading action (replace with actual logic)
-        mainBitMEXLiveTrader() # Placeholder for actual task
+        mainBitMEXLiveTrader() 7# Placeholder for actual task
 
         # Save progress after each step
         save_progress(current_step + 1)
@@ -1650,6 +1650,22 @@ def run_trading_script():
         print("4 hours have passed. Stopping script...")
         return  # Stop the script gracefully after 4 hours
 
-if __name__ == "__main__":
-    run_trading_script()
+#if __name__ == "__main__":
+ #   run_trading_script()
+ 
+ current_step = load_progress()
+total_steps = 10  # Example total steps
+
+elapsed_time = get_elapsed_time()
+
+# If elapsed time is less than 4 hours, run the script
+if elapsed_time < 4 * 3600:  # 4 hours in seconds
+    print(f"Running step {current_step + 1} of {total_steps}...")
+    # Simulate trading action (replace with actual logic)
+    mainBitMEXLiveTrader()  # Fixed syntax error (removed '7#' and replaced with '#')
+    
+    # Save progress after each step
+    save_progress(current_step + 1)
+else:
+    print("4 hours have passed. Stopping script...")
 
