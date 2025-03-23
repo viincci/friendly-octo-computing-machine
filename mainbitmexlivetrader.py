@@ -1583,12 +1583,12 @@ def mainBitMEXLiveTrader():
             api_secret=API_SECRET,
             test=True,  # Use testnet
             symbol="XBTUSD",  # Bitcoin/USD
-            timeframe="1h",  # 1-hour candles
+            timeframe="15m",  # 1-hour candles
             risk_per_trade=0.02  # 2% risk per trade
         )
 
         # Start trading loop
-        trader.run(scan_interval=300)  # Scan every 5 minutes
+        trader.run(scan_interval=120)  # Scan every 5 minutes
 
     except KeyboardInterrupt:
         logger.info("BitMEXLiveTrader stopped by user")
