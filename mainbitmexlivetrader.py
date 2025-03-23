@@ -652,7 +652,7 @@ class SMCStrategy:
                     #logger.info(f"Bullish CHoCH detected at index {formatted_low}")
                     logger.info(f"Bearish CHoCH detected at index {ormatted_high}")
                     print(f"Bearish CHoCH detected at index {i}")
-
+        logger.info("Done Identifying market structure")
         return df
     #def __init__(self, df, initial_balance=10000, risk_per_trade=0.02):
         #print(f"Strategy initialized with {initial_balance} account balance and {risk_per_trade*100}% risk per trade")
@@ -1503,7 +1503,7 @@ class BitMEXLiveTrader:
 
                 # Get market data
                 df = self.get_market_data()
-                 logger.info(f"Got market data :\n {df.head() }")
+                logger.info(f"Got market data :\n {df.head() }")
                 # Analyze market structure
                 df_analyzed = self.analyze_market_structure(df)
                 logger.info(f"Analysis of market structure :\n {df_analyzed.head() }")
