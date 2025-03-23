@@ -1659,7 +1659,7 @@ total_steps = 10  # Example total steps
 elapsed_time = get_elapsed_time()
 
 # If elapsed time is less than 4 hours, run the script
-if elapsed_time < 4 * 3600:  # 4 hours in seconds
+while elapsed_time < 4 * 3600:  # 4 hours in seconds
     print(f"Running step {current_step + 1} of {total_steps}...")
     # Simulate trading action (replace with actual logic)
     mainBitMEXLiveTrader()  # Fixed syntax error (removed '7#' and replaced with '#')
