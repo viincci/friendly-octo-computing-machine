@@ -5,10 +5,6 @@ python-telegram-bot
 nest_asyncio
 numpy
 pandas
-logging
-datetime
 telegram
 asyncio
-threading
-queue
 python-dotenv 
