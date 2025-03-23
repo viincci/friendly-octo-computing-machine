@@ -16,7 +16,11 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    env:
+      CHAT_ID: ${{ secrets.CHAT_ID }}
+      TOKEN: ${{ secrets.TOKEN }}
+      API_KEY: ${{ secrets.API_KEY }}
+      API_SECRET: ${{ secrets.API_SECRET }}
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python 3.10
