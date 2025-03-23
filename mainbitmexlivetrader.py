@@ -613,7 +613,7 @@ class SMCStrategy:
 
                 if current_low > prev_high and i > last_high_idx + 1:
                     df.loc[df.index[i], 'bos_up'] = True
-                    logger.info(f"Bullish BOS detected at index {current_datetime}, price: {current_low}")
+                    logger.info(f"Bullish BOS detected at index {current_datetime['close']}, price: {current_low}")
                     print(f"Bullish BOS detected at index {current_datetime }, price: {current_low}")
 
             # BOS Down: Price breaks below recent structure low
@@ -623,8 +623,8 @@ class SMCStrategy:
 
                 if current_high < prev_low and i > last_low_idx + 1:
                     df.loc[df.index[i], 'bos_down'] = True
-                    formatted_high = f"${recent_highs[-1]  * 100000:.2f}" if recent_highs[-1] < 1 else f"${recent_highs[-1] :.2f}"
-                    logger.info(f"Bearish BOS detected at index {current_datetime},  price: {current_high}")
+                    #formatted_high = f"${recent_highs[-1]  * 100000:.2f}" if recent_highs[-1] < 1 else f"${recent_highs[-1] :.2f}"
+                    logger.info(f"Bearish BOS detected at index {current_datetime['close']},  price: {current_high}")
                     print(f"Bearish BOS detected at index {i}, price: {current_high}")
 
         # Identify Change of Character (CHoCH)
