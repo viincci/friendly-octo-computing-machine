@@ -1653,7 +1653,7 @@ def run_trading_script():
 #if __name__ == "__main__":
  #   run_trading_script()
  
- current_step = load_progress()
+current_step = load_progress()
 total_steps = 10  # Example total steps
 
 elapsed_time = get_elapsed_time()
