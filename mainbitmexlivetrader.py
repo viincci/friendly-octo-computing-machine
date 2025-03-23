@@ -215,12 +215,12 @@ def cleanup():
 def mainTelegramlogger(messages):
     # Start the Telegram bot
     start_telegram_bot()
-
+    time.sleep(1.5)
     # Direct message to Telegram
     send_telegram_message(messages)
-
+    time.sleep(.5)
     wait_for_messages()
-
+    time.sleep(.5)
     # Clean up before exiting
     cleanup()
 
@@ -236,6 +236,7 @@ def configure_logging():
         def emit(self, record):
             try:
                 log_message = self.format(record)
+                time.sleep(1.5)
                 mainTelegramlogger(log_message)  # Your custom function
             except Exception as e:
                 print(f"Error in custom logging handler: {e}")
