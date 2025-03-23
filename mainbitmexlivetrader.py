@@ -236,7 +236,7 @@ def configure_logging():
         def emit(self, record):
             try:
                 log_message = self.format(record)
-                time.sleep(1.5)
+                #time.sleep(1.5)
                 mainTelegramlogger(log_message)  # Your custom function
             except Exception as e:
                 print(f"Error in custom logging handler: {e}")
@@ -651,7 +651,7 @@ class SMCStrategy:
                     formatted_high = f"${recent_highs[-1]  * 100000:.2f}" if recent_highs[-1] < 1 else f"${recent_highs[-1] :.2f}"
                     #formatted_high = f"${fvg_high * 100000:.2f}" if fvg_high < 1 else f"${fvg_high:.2f}"
                     #logger.info(f"Bullish CHoCH detected at index {formatted_low}")
-                    logger.info(f"Bearish CHoCH detected at index {ormatted_high}")
+                    logger.info(f"Bearish CHoCH detected at index {formatted_high}")
                     print(f"Bearish CHoCH detected at index {i}")
         logger.info("Done Identifying market structure")
         return df
