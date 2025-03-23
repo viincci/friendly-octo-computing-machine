@@ -612,6 +612,7 @@ class SMCStrategy:
         structure_points_low = []
 
         for i in range(1, len(df)):
+            current_datetime = df.iloc[i]['datetime']
             current_high = df.iloc[i]['high']
             current_low = df.iloc[i]['low']
 
@@ -629,8 +630,8 @@ class SMCStrategy:
 
                 if current_low > prev_high and i > last_high_idx + 1:
                     df.loc[df.index[i], 'bos_up'] = True
-                    logger.info(f"Bullish BOS detected at index {i}, price: {current_low}")
-                    print(f"Bullish BOS detected at index {i}, price: {current_low}")
+                    logger.info(f"Bullish BOS detected at index {current_datetime}, price: {current_low}")
+                    print(f"Bullish BOS detected at index {current_datetime }, price: {current_low}")
 
             # BOS Down: Price breaks below recent structure low
             if len(structure_points_low) >= 2:
@@ -639,7 +640,7 @@ class SMCStrategy:
 
                 if current_high < prev_low and i > last_low_idx + 1:
                     df.loc[df.index[i], 'bos_down'] = True
-                    logger.info(f"Bearish BOS detected at index {i}, price: {current_high}")
+                    logger.info(f"Bearish BOS detected at index {current_datetime }, price: {current_high}")
                     print(f"Bearish BOS detected at index {i}, price: {current_high}")
 
         # Identify Change of Character (CHoCH)
@@ -649,7 +650,7 @@ class SMCStrategy:
                 recent_lows = df.iloc[i-window:i]['low'].tolist()
                 if min(recent_lows[:-1]) < recent_lows[-1]:
                     df.loc[df.index[i], 'choch_up'] = True
-                    logger.info(f"Bullish CHoCH detected at index {i}")
+                    logger.info(f"Bullish CHoCH detected at index {current_datetime}")
                     print(f"Bullish CHoCH detected at index {i}")
 
             # Bearish CHoCH: After BOS down, creates lower high
@@ -657,7 +658,7 @@ class SMCStrategy:
                 recent_highs = df.iloc[i-window:i]['high'].tolist()
                 if max(recent_highs[:-1]) > recent_highs[-1]:
                     df.loc[df.index[i], 'choch_down'] = True
-                    logger.info(f"Bearish CHoCH detected at index {i}")
+                    logger.info(f"Bearish CHoCH detected at index {current_datetime}")
                     print(f"Bearish CHoCH detected at index {i}")
 
         return df
@@ -758,6 +759,7 @@ class SMCStrategy:
 
         # Loop through all previous candles
         for i in range(current_idx):
+            current_datetime = df.iloc[i]['datetime']
             # Check if the candle had a bullish FVG
             if df.iloc[i].get('bullish_fvg', False) and pd.notna(df.iloc[i].get('bullish_fvg_low')):
                 fvg_low = df.iloc[i]['bullish_fvg_low']
@@ -768,8 +770,8 @@ class SMCStrategy:
                     if df.iloc[j]['low'] <= fvg_high and df.iloc[j]['high'] >= fvg_low:
                         # FVG has been mitigated
                         df.loc[df.index[i], 'bullish_fvg_mitigated'] = True
-                        logger.info(f"Bullish FVG at index {i} has been mitigated at index {j}")
-                        print(f"Bullish FVG at index {i} has been mitigated at index {j}")
+                        logger.info(f"Bullish FVG at index {current_datetime} has been mitigated at index {j}")
+                        print(f"Bullish FVG at index {current_datetime} has been mitigated at index {j}")
                         break
 
             # Check if the candle had a bearish FVG
@@ -779,6 +781,7 @@ class SMCStrategy:
 
                 # Check if price revisited the FVG area
                 for j in range(i+1, current_idx+1):
+                    current_datetime = df.iloc[i]['datetime']
                     if df.iloc[j]['low'] <= fvg_high and df.iloc[j]['high'] >= fvg_low:
                         # FVG has been mitigated
                         df.loc[df.index[i], 'bearish_fvg_mitigated'] = True
