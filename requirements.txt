@@ -1,0 +1,15 @@
+yfinance
+bitmex
+matplotlib
+python-telegram-bot
+nest_asyncio
+numpy
+pandas
+logging
+json
+datetime
+telegram
+asyncio
+threading
+queue
+python-dotenv 
