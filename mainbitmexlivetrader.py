@@ -216,24 +216,9 @@ def mainTelegramlogger(messages):
     # Start the Telegram bot
     start_telegram_bot()
 
-    # Set up logging
-    #logger = configure_logging()
-
-    # Example log calls
-    #logger.info("This is a test info message.")
-    #logger.error("This is a test error message.")
-
     # Direct message to Telegram
     send_telegram_message(messages)
 
-    # Your additional code can run here
-    #print("This code runs while messages are being sent in the background")
-
-    # More of your code
-    #print("More code executing...")
-
-    # Wait for all messages to be sent before exiting
-    #print("Waiting for messages to be sent...")
     wait_for_messages()
 
     # Clean up before exiting
@@ -251,15 +236,11 @@ def configure_logging():
         def emit(self, record):
             try:
                 log_message = self.format(record)
-                custom_log_function(log_message)  # Your custom function
+                mainTelegramlogger(log_message)  # Your custom function
             except Exception as e:
                 print(f"Error in custom logging handler: {e}")
 
-    # Custom function that gets called with the log message
-    def custom_log_function(message):
-        mainTelegramlogger(message)
-        print(f"Custom function called with message: {message}")
-
+    
     # Configure the logger
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
@@ -612,7 +593,8 @@ class SMCStrategy:
         structure_points_low = []
 
         for i in range(1, len(df)):
-            current_datetime = df.iloc[i]['datetime']
+            #current_datetime = df.iloc[i]['datetime']
+            current_datetime = df.iloc[i]
             current_high = df.iloc[i]['high']
             current_low = df.iloc[i]['low']
 
@@ -640,17 +622,23 @@ class SMCStrategy:
 
                 if current_high < prev_low and i > last_low_idx + 1:
                     df.loc[df.index[i], 'bos_down'] = True
-                    logger.info(f"Bearish BOS detected at index {current_datetime }, price: {current_high}")
+                    formatted_high = f"${recent_highs[-1]  * 100000:.2f}" if recent_highs[-1] < 1 else f"${recent_highs[-1] :.2f}"
+                    logger.info(f"Bearish BOS detected at index {current_datetime},  price: {current_high}")
                     print(f"Bearish BOS detected at index {i}, price: {current_high}")
 
         # Identify Change of Character (CHoCH)
         for i in range(window+1, len(df)):
+            current_datetime = df.iloc[i]
+            #current_datetime = df.iloc[i]['datetime']
             # Bullish CHoCH: After BOS up, creates higher low
             if df.iloc[i-1]['bos_up']:
                 recent_lows = df.iloc[i-window:i]['low'].tolist()
                 if min(recent_lows[:-1]) < recent_lows[-1]:
                     df.loc[df.index[i], 'choch_up'] = True
-                    logger.info(f"Bullish CHoCH detected at index {current_datetime}")
+                    
+                    formatted_low = f"${recent_lows[-1]  * 100000:.2f}" if recent_lows[-1] < 1 else f"${recent_lows[-1] :.2f}"
+                    #formatted_high = f"${fvg_high * 100000:.2f}" if fvg_high < 1 else f"${fvg_high:.2f}"
+                    logger.info(f"Bullish CHoCH detected at index {formatted_low}")
                     print(f"Bullish CHoCH detected at index {i}")
 
             # Bearish CHoCH: After BOS down, creates lower high
@@ -658,7 +646,11 @@ class SMCStrategy:
                 recent_highs = df.iloc[i-window:i]['high'].tolist()
                 if max(recent_highs[:-1]) > recent_highs[-1]:
                     df.loc[df.index[i], 'choch_down'] = True
-                    logger.info(f"Bearish CHoCH detected at index {current_datetime}")
+                    
+                    formatted_high = f"${recent_highs[-1]  * 100000:.2f}" if recent_highs[-1] < 1 else f"${recent_highs[-1] :.2f}"
+                    #formatted_high = f"${fvg_high * 100000:.2f}" if fvg_high < 1 else f"${fvg_high:.2f}"
+                    #logger.info(f"Bullish CHoCH detected at index {formatted_low}")
+                    logger.info(f"Bearish CHoCH detected at index {ormatted_high}")
                     print(f"Bearish CHoCH detected at index {i}")
 
         return df
@@ -785,10 +777,10 @@ class SMCStrategy:
                     if df.iloc[j]['low'] <= fvg_high and df.iloc[j]['high'] >= fvg_low:
                         # FVG has been mitigated
                         df.loc[df.index[i], 'bearish_fvg_mitigated'] = True
-                        logger.info(f"Bearish FVG at index {i} has been mitigated at index {j}")
+                        logger.info(f"Bearish FVG at index {current_datetime} has been mitigated at index {j}")
                         print(f"Bearish FVG at index {i} has been mitigated at index {j}")
                         break
-
+        logger.info("Done Identifying Fair Value Gaps")
         return df
 
     def execute_trades(self):
@@ -1267,6 +1259,7 @@ class BitMEXLiveTrader:
 
         # Identify Fair Value Gaps
         smc.identify_fvg()
+        logger.info("Done Analyzing market structure using SMC logic")
 
         # Return the processed dataframe with SMC signals
         return smc.df
@@ -1363,7 +1356,7 @@ class BitMEXLiveTrader:
                                 'take_profit': take_profit
                             }
                             break
-
+        logger.info("Done Checking for trading signals")
         return signal
 
     def execute_signal(self, signal):
@@ -1510,13 +1503,13 @@ class BitMEXLiveTrader:
 
                 # Get market data
                 df = self.get_market_data()
-
+                 logger.info(f"Got market data :\n {df.head() }")
                 # Analyze market structure
                 df_analyzed = self.analyze_market_structure(df)
-
+                logger.info(f"Analysis of market structure :\n {df_analyzed.head() }")
                 # Check for signals
                 signal = self.check_for_signals(df_analyzed)
-
+                logger.info(f"Results of Checking for signals :\n {signal.head() }")
                 # Execute signal if any
                 self.execute_signal(signal)
 
@@ -1600,7 +1593,7 @@ def mainBitMEXLiveTrader():
             api_key=API_KEY,
             api_secret=API_SECRET,
             test=True,  # Use testnet
-            symbol="XBTUSD",  # Bitcoin/USD
+            symbol="SOLUSD",  # Bitcoin/USD
             timeframe="15m",  # 1-hour candles
             risk_per_trade=0.02  # 2% risk per trade
         )
