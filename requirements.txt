@@ -6,7 +6,6 @@ nest_asyncio
 numpy
 pandas
 logging
-json
 datetime
 telegram
 asyncio
