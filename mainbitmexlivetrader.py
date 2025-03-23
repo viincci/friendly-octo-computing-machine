@@ -1651,21 +1651,22 @@ def run_trading_script():
         return  # Stop the script gracefully after 4 hours
 
 #if __name__ == "__main__":
- #   run_trading_script()
- 
-current_step = load_progress()
-total_steps = 10  # Example total steps
+ #   run_trading_script() 
 
-elapsed_time = get_elapsed_time()
+# Your main script logic here
+def run_script():
+    start_time = time.time()
+    end_time = start_time + 4 * 60 * 60  # 4 hours in seconds
 
-# If elapsed time is less than 4 hours, run the script
-while elapsed_time < 4 * 3600:  # 4 hours in seconds
-    print(f"Running step {current_step + 1} of {total_steps}...")
-    # Simulate trading action (replace with actual logic)
-    mainBitMEXLiveTrader()  # Fixed syntax error (removed '7#' and replaced with '#')
-    
-    # Save progress after each step
-    save_progress(current_step + 1)
-else:
-    print("4 hours have passed. Stopping script...")
+    while time.time() < end_time:
+        # Add your trading logic here
+        print("Running script logic...")
 
+        # Simulate script working
+        mainBitMEXLiveTrader()  # Sleep for 1 minute in each loop for demo purposes
+
+    print("Script finished, taking a 30-minute break...")
+    time.sleep(1800)  # Sleep for 30 minutes (1800 seconds) before completing
+
+# Run the script
+run_script()
