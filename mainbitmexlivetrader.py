@@ -687,6 +687,7 @@ class SMCStrategy:
             df['bearish_fvg_mitigated'] = False
 
         for i in range(2, len(df)):
+            current_datetime = df.index[i]
             # Bullish FVG: Previous candle's low > Current candle's high
             if df.iloc[i-2]['low'] > df.iloc[i]['high']:
                 # Check Gann Box (0-0.5 range for bullish FVGs)
@@ -707,9 +708,14 @@ class SMCStrategy:
                         df.loc[df.index[i], 'bullish_fvg_low'] = fvg_low
                         df.loc[df.index[i], 'bullish_fvg_high'] = fvg_high
                         df.loc[df.index[i], 'bullish_fvg_sl_index'] = i
+                        formatted_low = f"${fvg_low * 100000:.2f}" if fvg_low < 1 else f"${fvg_low:.2f}"
+                        formatted_high = f"${fvg_high * 100000:.2f}" if fvg_high < 1 else f"${fvg_high:.2f}"
+                    
+                   		logger.info(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
+                   		print(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
 
-                        logger.info(f"Bullish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
-                        print(f"Bullish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
+                        #logger.info(f"Bullish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
+                        #print(f"Bullish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
 
             # Bearish FVG: Previous candle's high < Current candle's low
             if df.iloc[i-2]['high'] < df.iloc[i]['low']:
@@ -731,9 +737,14 @@ class SMCStrategy:
                         df.loc[df.index[i], 'bearish_fvg_low'] = fvg_low
                         df.loc[df.index[i], 'bearish_fvg_high'] = fvg_high
                         df.loc[df.index[i], 'bearish_fvg_sl_index'] = i
+                        formatted_low = f"${fvg_low * 100000:.2f}" if fvg_low < 1 else f"${fvg_low:.2f}"
+                   		formatted_high = f"${fvg_high * 100000:.2f}" if fvg_high < 1 else f"${fvg_high:.2f}"
+                    
+                   		logger.info(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
+                   		print(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
 
-                        logger.info(f"Bearish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
-                        print(f"Bearish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
+                        #logger.info(f"Bearish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
+                        #print(f"Bearish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
 
         return df
 
