@@ -711,8 +711,8 @@ class SMCStrategy:
                         formatted_low = f"${fvg_low * 100000:.2f}" if fvg_low < 1 else f"${fvg_low:.2f}"
                         formatted_high = f"${fvg_high * 100000:.2f}" if fvg_high < 1 else f"${fvg_high:.2f}"
                     
-                   		logger.info(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
-                   		print(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
+                   	    logger.info(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
+                   	    print(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
 
                         #logger.info(f"Bullish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
                         #print(f"Bullish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
@@ -738,10 +738,10 @@ class SMCStrategy:
                         df.loc[df.index[i], 'bearish_fvg_high'] = fvg_high
                         df.loc[df.index[i], 'bearish_fvg_sl_index'] = i
                         formatted_low = f"${fvg_low * 100000:.2f}" if fvg_low < 1 else f"${fvg_low:.2f}"
-                   		formatted_high = f"${fvg_high * 100000:.2f}" if fvg_high < 1 else f"${fvg_high:.2f}"
+                     	formatted_high = f"${fvg_high * 100000:.2f}" if fvg_high < 1 else f"${fvg_high:.2f}"
                     
-                   		logger.info(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
-                   		print(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
+                   	    logger.info(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
+                   	    print(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
 
                         #logger.info(f"Bearish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
                         #print(f"Bearish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
