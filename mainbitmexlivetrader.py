@@ -692,7 +692,7 @@ class SMCStrategy:
             df['bearish_fvg_mitigated'] = False
 
         for i in range(2, len(df)):
-            current_datetime = df.index[i]
+            current_datetime = df.iloc[i]['datetime']
             # Bullish FVG: Previous candle's low > Current candle's high
             if df.iloc[i-2]['low'] > df.iloc[i]['high']:
                 # Check Gann Box (0-0.5 range for bullish FVGs)
