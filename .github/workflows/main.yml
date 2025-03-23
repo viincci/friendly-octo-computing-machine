@@ -1,0 +1,33 @@
+name: BitMEX Live Trader  
+
+on:  
+  push:  
+    branches:  
+      - main  
+
+jobs:  
+  trade:  
+    runs-on: ubuntu-latest  
+
+    env:  
+      CHAT_ID: ${{ secrets.CHAT_ID }}  
+      TOKEN: ${{ secrets.TOKEN }}  
+      API_KEY: ${{ secrets.API_KEY }}  
+      API_SECRET: ${{ secrets.API_SECRET }}  
+
+    steps:  
+      - name: Checkout Repository  
+        uses: actions/checkout@v3  
+
+      - name: Set up Python  
+        uses: actions/setup-python@v4  
+        with:  
+          python-version: '3.10'  
+
+      - name: Install Dependencies  
+        run: |  
+          pip install -r requirements.txt  
+
+      - name: Run Live Trading Script  
+        run: |  
+          python mainbitmexlivetrader.py
