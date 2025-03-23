@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1ceqPVi26bxYuJdDijAZxhfx8k6f1Nnit
 """
 
-!pip install -q yfinance bitmex matplotlib python-telegram-bot nest_asyncio
+#!pip install -q yfinance bitmex matplotlib python-telegram-bot nest_asyncio
 
 # -*- coding: utf-8 -*-
 import numpy as np
@@ -43,7 +43,7 @@ load_dotenv()
 
 # Constants
 TOKEN =os.getenv("TOKEN")
-CHAT_ID = os.getenv("CHAT_ID ")
+CHAT_ID = os.getenv("CHAT_ID")
 
 # Global variables
 message_queue = queue.Queue()
