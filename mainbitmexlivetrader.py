@@ -127,7 +127,7 @@ def start_telegram_bot():
         time.sleep(1)
 
         # Send an initialization message
-        send_telegram_message(f"{time.strftime('%Y-%m-%d %H:%M:%S')}")
+        #send_telegram_message(f"{time.strftime('%Y-%m-%d %H:%M:%S')}")
 
 def stop_telegram_bot():
     """Stop the Telegram bot thread gracefully."""
@@ -1216,10 +1216,10 @@ class BitMEXLiveTrader:
             # Fallback to yfinance for data (mostly for testing purposes)
             logger.warning(f"Failed to get data from BitMEX API: {str(e)}. Falling back to yfinance.")
             print(f"Failed to get data from BitMEX API: {str(e)}. Falling back to yfinance.")
-
+            
             # For crypto we'll use a different ticker format
             crypto_ticker = self.symbol.replace('USD', '-USD')
-            end_date = datetime.now()
+            end_date = datetime.datetime.now()
             start_date = end_date - timedelta(days=30)  # Adjust as needed
 
             data = yf.download(
