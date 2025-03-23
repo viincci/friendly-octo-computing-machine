@@ -661,6 +661,11 @@ class SMCStrategy:
                     print(f"Bearish CHoCH detected at index {i}")
 
         return df
+    #def __init__(self, df, initial_balance=10000, risk_per_trade=0.02):
+        #print(f"Strategy initialized with {initial_balance} account balance and {risk_per_trade*100}% risk per trade")
+
+    #def identify_structure(self):
+        #return df
 
     def identify_fvg(self):
         """Identify Fair Value Gaps (FVGs)"""
@@ -710,9 +715,9 @@ class SMCStrategy:
                         df.loc[df.index[i], 'bullish_fvg_sl_index'] = i
                         formatted_low = f"${fvg_low * 100000:.2f}" if fvg_low < 1 else f"${fvg_low:.2f}"
                         formatted_high = f"${fvg_high * 100000:.2f}" if fvg_high < 1 else f"${fvg_high:.2f}"
-                    
-                   	    logger.info(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
-                   	    print(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
+                        
+                        logger.info(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
+                        print(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
 
                         #logger.info(f"Bullish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
                         #print(f"Bullish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
@@ -738,16 +743,15 @@ class SMCStrategy:
                         df.loc[df.index[i], 'bearish_fvg_high'] = fvg_high
                         df.loc[df.index[i], 'bearish_fvg_sl_index'] = i
                         formatted_low = f"${fvg_low * 100000:.2f}" if fvg_low < 1 else f"${fvg_low:.2f}"
-                     	formatted_high = f"${fvg_high * 100000:.2f}" if fvg_high < 1 else f"${fvg_high:.2f}"
-                    
-                   	    logger.info(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
-                   	    print(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
+                        formatted_high = f"${fvg_high * 100000:.2f}" if fvg_high < 1 else f"${fvg_high:.2f}"
+                        
+                        logger.info(f"Bearish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
+                        print(f"Bearish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
 
                         #logger.info(f"Bearish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
                         #print(f"Bearish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
 
         return df
-
     def check_fvg_mitigation(self, current_idx):
         """Check if any previously identified FVGs have been mitigated"""
         df = self.df
