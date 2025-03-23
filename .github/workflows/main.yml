@@ -1,33 +1,32 @@
-name: BitMEX Live Trader  
+name: BitMEX Live Trader
 
-on:  
-  push:  
-    branches:  
-      - main  
+on:
+  schedule:
+    - cron: '*/72 * * * *'  # Run every 72 minutes (1.2 hours)
 
-jobs:  
-  trade:  
-    runs-on: ubuntu-latest  
+jobs:
+  trade:
+    runs-on: ubuntu-latest
 
-    env:  
-      CHAT_ID: ${{ secrets.CHAT_ID }}  
-      TOKEN: ${{ secrets.TOKEN }}  
-      API_KEY: ${{ secrets.API_KEY }}  
-      API_SECRET: ${{ secrets.API_SECRET }}  
+    env:
+      CHAT_ID: ${{ secrets.CHAT_ID }}
+      TOKEN: ${{ secrets.TOKEN }}
+      API_KEY: ${{ secrets.API_KEY }}
+      API_SECRET: ${{ secrets.API_SECRET }}
 
-    steps:  
-      - name: Checkout Repository  
-        uses: actions/checkout@v3  
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      - name: Set up Python  
-        uses: actions/setup-python@v4  
-        with:  
-          python-version: '3.10'  
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
 
-      - name: Install Dependencies  
-        run: |  
-          pip install -r requirements.txt  
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
 
-      - name: Run Live Trading Script  
-        run: |  
+      - name: Run Live Trading Script
+        run: |
           python mainbitmexlivetrader.py
