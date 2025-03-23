@@ -1642,7 +1642,7 @@ def run_trading_script():
     if elapsed_time < 4 * 3600:  # 4 hours in seconds
         print(f"Running step {current_step + 1} of {total_steps}...")
         # Simulate trading action (replace with actual logic)
-        mainBitMEXLiveTrader() 7# Placeholder for actual task
+        mainBitMEXLiveTrader() # Placeholder for actual task
 
         # Save progress after each step
         save_progress(current_step + 1)
