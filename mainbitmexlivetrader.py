@@ -1408,7 +1408,7 @@ class BitMEXLiveTrader:
 
             # Record trade
             trade = {
-                'entry_time': datetime.now(),
+                'entry_time': datetime.datetime.now(),
                 'entry_price': price,
                 'side': side,
                 'position_size': position_size,
@@ -1444,7 +1444,7 @@ class BitMEXLiveTrader:
 
             # Update the latest trade record
             current_trade = self.trades[-1]
-            current_trade['exit_time'] = datetime.now()
+            current_trade['exit_time'] = datetime.datetime.now()
             current_trade['exit_price'] = price
             current_trade['exit_reason'] = reason
             current_trade['pnl'] = pnl
@@ -1487,8 +1487,8 @@ class BitMEXLiveTrader:
         # Main trading loop
         try:
             while True:
-                logger.info(f"Scanning market at {datetime.now()}")
-                print(f"Scanning market at {datetime.now()}")
+                logger.info(f"Scanning market at {datetime.datetime.now() }")
+                print(f"Scanning market at {datetime.datetime.now()}")
 
                 # Get market data
                 df = self.get_market_data()
