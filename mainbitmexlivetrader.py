@@ -43,7 +43,7 @@ load_dotenv()
 
 # Constants
 TOKEN =os.getenv("TOKEN")
-CHAT_ID = os.getenv("CHAT_ID ")
+CHAT_ID = os.getenv("CHAT_ID")
 
 # Global variables
 message_queue = queue.Queue()
