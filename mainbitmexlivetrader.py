@@ -1597,4 +1597,59 @@ def mainBitMEXLiveTrader():
         logger.error(f"Unexpected error: {str(e)}")
         print(f"Unexpected error: {str(e)}")
 
-mainBitMEXLiveTrader()
+
+import time
+import os
+import datetime
+
+# File to store the progress
+progress_file = "progress.txt"
+start_time_file = "start_time.txt"
+
+def load_progress():
+    """Load the last progress from a file."""
+    if os.path.exists(progress_file):
+        with open(progress_file, "r") as f:
+            return int(f.read())
+    return 0  # Default to starting from 0 if no progress file
+
+def save_progress(step):
+    """Save the current progress."""
+    with open(progress_file, "w") as f:
+        f.write(str(step))
+
+def get_elapsed_time():
+    """Get the elapsed time since the script started."""
+    if os.path.exists(start_time_file):
+        with open(start_time_file, "r") as f:
+            start_time = datetime.datetime.strptime(f.read(), '%Y-%m-%d %H:%M:%S')
+        elapsed_time = datetime.datetime.now() - start_time
+        return elapsed_time.total_seconds()
+    else:
+        # If no start time is found, initialize it
+        with open(start_time_file, "w") as f:
+            f.write(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+        return 0  # If no start time exists, it's the first run
+
+def run_trading_script():
+    """Run the trading script in chunks."""
+    current_step = load_progress()
+    total_steps = 10  # Example total steps
+
+    elapsed_time = get_elapsed_time()
+
+    # If elapsed time is less than 4 hours, run the script
+    if elapsed_time < 4 * 3600:  # 4 hours in seconds
+        print(f"Running step {current_step + 1} of {total_steps}...")
+        # Simulate trading action (replace with actual logic)
+        mainBitMEXLiveTrader() # Placeholder for actual task
+
+        # Save progress after each step
+        save_progress(current_step + 1)
+    else:
+        print("4 hours have passed. Stopping script...")
+        return  # Stop the script gracefully after 4 hours
+
+if __name__ == "__main__":
+    run_trading_script()
+
