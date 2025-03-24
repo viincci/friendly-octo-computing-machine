@@ -1511,12 +1511,13 @@ class BitMEXLiveTrader:
                 # Check for signals
                 signal = self.check_for_signals(df_analyzed)
                 logger.info(f"Results of Checking for signals :\n {signal.head() }")
-                # Execute signal if any
-                self.execute_signal(signal)
+                
 
                 # Show current balance after trade execution
                 if signal is not None:
-                    logger.info("=== CURRENT PROFILE ===")
+                    #  signal if any
+                    self.execute_signal(signal)
+                    #logger.info("=== CURRENT PROFILE ===")
                     print("=== CURRENT PROFILE ===")
                     profile = self.api.get_profile_info()
                     self.current_balance = profile['balance']  # Adjust based on your API's response format
