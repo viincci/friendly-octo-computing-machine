@@ -1599,8 +1599,8 @@ def mainBitMEXLiveTrader():
             api_secret=API_SECRET,
             test=True,  # Use testnet
             symbol="SOLUSD",  # Bitcoin/USD
-            timeframe="15m",  # 1-hour candles
-            risk_per_trade=0.02  # 2% risk per trade
+            timeframe="5m",  # 1-hour candles
+            risk_per_trade=0.2  # 2% risk per trade
         )
 
         # Start trading loop
