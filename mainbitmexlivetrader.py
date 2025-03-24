@@ -1218,7 +1218,7 @@ class BitMEXLiveTrader:
             # Convert to DataFrame format expected by your SMC logic
             df = pd.DataFrame(data)
 
-            logger.info(f"Retrieved {len(df)} candles from BitMEX")
+            #logger.info(f"Retrieved {len(df)} candles from BitMEX")
             print(f"Retrieved {len(df)} candles from BitMEX")
 
             return df
@@ -1512,7 +1512,7 @@ class BitMEXLiveTrader:
                 signal = self.check_for_signals(df_analyzed)
                 
                 # Show current balance after trade execution
-                if signal is not None or type(signal) == None:
+                if signal is not None or type(signal) != None:
                     logger.info(f"Results of Checking for signals :\n {signal.head()}")
                     #  signal if any
                     self.execute_signal(signal)
@@ -1520,7 +1520,10 @@ class BitMEXLiveTrader:
                     print("=== CURRENT PROFILE ===")
                     profile = self.api.get_profile_info()
                     self.current_balance = profile['balance']  # Adjust based on your API's response format
-
+                if signal is None or type(signal) == None:
+                    logger.info(f"No signal")
+                    continue
+                    #  signal if any
                 # Wait for next scan
                 logger.info(f"Waiting for {scan_interval} seconds until next scan...")
                 print(f"Waiting for {scan_interval} seconds until next scan...")
