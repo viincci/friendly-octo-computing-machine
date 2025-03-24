@@ -1510,11 +1510,10 @@ class BitMEXLiveTrader:
                 logger.info(f"Analysis of market structure :\n {df_analyzed.head() }")
                 # Check for signals
                 signal = self.check_for_signals(df_analyzed)
-                logger.info(f"Results of Checking for signals :\n {signal.head() }")
                 
-
                 # Show current balance after trade execution
-                if signal is not None:
+                if signal is not None or type(signal) == NoneType:
+                    logger.info(f"Results of Checking for signals :\n {signal.head()}")
                     #  signal if any
                     self.execute_signal(signal)
                     #logger.info("=== CURRENT PROFILE ===")
