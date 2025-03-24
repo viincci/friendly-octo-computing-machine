@@ -1504,17 +1504,17 @@ class BitMEXLiveTrader:
 
                 # Get market data
                 df = self.get_market_data()
-                logger.info(f"Got market data :\n {df.tail(2) }")
+                logger.info(f"Got market data :\n {df.tail(1) }")
                 # Analyze market structure
                 df_analyzed = self.analyze_market_structure(df)
-                logger.info(f"Analysis of market structure :\n {df_analyzed.tail(2)}")
+                logger.info(f"Analysis of market structure :\n {df_analyzed.tail(1)}")
                 # Check for signals
                 signal = self.check_for_signals(df_analyzed)
                 
                 # Show current balance after trade execution
                 if signal is not None:
                     logger.info(f"Found signal {signal}") 
-                    logger.info(f"Results of Checking for signals :\n {signal.tail(2)}")
+                    logger.info(f"Results of Checking for signals :\n {signal.tail(1)}")
                     #  signal if any
                     self.execute_signal(signal)
                     #logger.info("=== CURRENT PROFILE ===")
