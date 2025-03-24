@@ -613,7 +613,7 @@ class SMCStrategy:
 
                 if current_low > prev_high and i > last_high_idx + 1:
                     df.loc[df.index[i], 'bos_up'] = True
-                    logger.info(f"Bullish BOS detected at index {current_datetime['close']}, price: {current_low}")
+                    #logger.info(f"Bullish BOS detected at index {current_datetime['close']}, price: {current_low}")
                     print(f"Bullish BOS detected at index {current_datetime }, price: {current_low}")
 
             # BOS Down: Price breaks below recent structure low
@@ -624,7 +624,7 @@ class SMCStrategy:
                 if current_high < prev_low and i > last_low_idx + 1:
                     df.loc[df.index[i], 'bos_down'] = True
                     #formatted_high = f"${recent_highs[-1]  * 100000:.2f}" if recent_highs[-1] < 1 else f"${recent_highs[-1] :.2f}"
-                    logger.info(f"Bearish BOS detected at index {current_datetime['close']},  price: {current_high}")
+                    #logger.info(f"Bearish BOS detected at index {current_datetime['close']},  price: {current_high}")
                     print(f"Bearish BOS detected at index {i}, price: {current_high}")
 
         # Identify Change of Character (CHoCH)
@@ -639,7 +639,7 @@ class SMCStrategy:
                     
                     formatted_low = f"${recent_lows[-1]  * 100000:.2f}" if recent_lows[-1] < 1 else f"${recent_lows[-1] :.2f}"
                     #formatted_high = f"${fvg_high * 100000:.2f}" if fvg_high < 1 else f"${fvg_high:.2f}"
-                    logger.info(f"Bullish CHoCH detected at index {formatted_low}")
+                    #logger.info(f"Bullish CHoCH detected at index {formatted_low}")
                     print(f"Bullish CHoCH detected at index {i}")
 
             # Bearish CHoCH: After BOS down, creates lower high
@@ -651,7 +651,7 @@ class SMCStrategy:
                     formatted_high = f"${recent_highs[-1]  * 100000:.2f}" if recent_highs[-1] < 1 else f"${recent_highs[-1] :.2f}"
                     #formatted_high = f"${fvg_high * 100000:.2f}" if fvg_high < 1 else f"${fvg_high:.2f}"
                     #logger.info(f"Bullish CHoCH detected at index {formatted_low}")
-                    logger.info(f"Bearish CHoCH detected at index {formatted_high}")
+                    #logger.info(f"Bearish CHoCH detected at index {formatted_high}")
                     print(f"Bearish CHoCH detected at index {i}")
         logger.info("Done Identifying market structure")
         return df
@@ -710,7 +710,7 @@ class SMCStrategy:
                         formatted_low = f"${fvg_low * 100000:.2f}" if fvg_low < 1 else f"${fvg_low:.2f}"
                         formatted_high = f"${fvg_high * 100000:.2f}" if fvg_high < 1 else f"${fvg_high:.2f}"
                         
-                        logger.info(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
+                        #logger.info(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
                         print(f"Bullish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
 
                         #logger.info(f"Bullish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
@@ -739,7 +739,7 @@ class SMCStrategy:
                         formatted_low = f"${fvg_low * 100000:.2f}" if fvg_low < 1 else f"${fvg_low:.2f}"
                         formatted_high = f"${fvg_high * 100000:.2f}" if fvg_high < 1 else f"${fvg_high:.2f}"
                         
-                        logger.info(f"Bearish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
+                        #logger.info(f"Bearish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
                         print(f"Bearish FVG detected at {current_datetime}, range: {formatted_low}-{formatted_high}")
 
                         #logger.info(f"Bearish FVG detected at index {i}, range: {fvg_low}-{fvg_high}")
