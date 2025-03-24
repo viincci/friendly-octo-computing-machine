@@ -1513,7 +1513,7 @@ class BitMEXLiveTrader:
                 
                 # Show current balance after trade execution
                 if signal is not None:
-                    logger.info(f🔵🔵🔵"Found signal {signal}🔵🔵🔵") 
+                    logger.info(f"🔵🔵🔵Found signal {signal}🔵🔵🔵") 
                     logger.info(f"Results of Checking for signals :\n {signal.tail(1)}")
                     #  signal if any
                     self.execute_signal(signal)
