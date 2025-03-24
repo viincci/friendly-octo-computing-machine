@@ -1225,7 +1225,7 @@ class BitMEXLiveTrader:
 
         except Exception as e:
             # Fallback to yfinance for data (mostly for testing purposes)
-            logger.warning(f"Failed to get data from BitMEX API: {str(e)}. Falling back to yfinance.")
+            #logger.warning(f"Failed to get data from BitMEX API: {str(e)}. Falling back to yfinance.")
             print(f"Failed to get data from BitMEX API: {str(e)}. Falling back to yfinance.")
             
             # For crypto we'll use a different ticker format
@@ -1521,9 +1521,9 @@ class BitMEXLiveTrader:
                     print("=== CURRENT PROFILE ===")
                     profile = self.api.get_profile_info()
                     self.current_balance = profile['balance']  # Adjust based on your API's response format
-                if signal == None:
+                elif signal == None:
                     logger.info(f"No signal")
-                    continue
+                    #continue
                     #  signal if any
                 # Wait for next scan
                 logger.info(f"Waiting for {scan_interval} seconds until next scan...")
@@ -1682,7 +1682,7 @@ def run_script():
         mainBitMEXLiveTrader()  # Sleep for 1 minute in each loop for demo purposes
 
     print("Script finished, taking a 30-minute break...")
-    time.sleep(1800)  # Sleep for 30 minutes (1800 seconds) before completing
+    time.sleep(18)  # Sleep for 30 minutes (1800 seconds) before completing
 
 # Run the script
 run_script()
